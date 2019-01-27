@@ -1,0 +1,44 @@
+!!!
+%html
+%head 
+  %title Notebuk | Your Personal Notebook
+  = stylesheet_link_tag     'application', media: 'all',  'data-turbolinks-track' => 'reload'
+  /= javascript_include_tag  'application',  'data-turbolinks-track' => 'reload'
+  = csrf_meta_tags
+  = csp_meta_tag
+    
+    
+%body
+  
+  %nav.navbar.navbar-expand-lg.navbar-light.bg-light
+    %button.navbar-toggler{"aria-controls" => "navbarTogglerDemo03", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarTogglerDemo03", "data-toggle" => "collapse", :type => "button"}
+      %span.navbar-toggler-icon
+    %a.navbar-brand{:href => root_path} NoteBuk
+    #navbarTogglerDemo03.collapse.navbar-collapse
+      %ul.navbar-nav.mr-auto.mt-2.mt-lg-0
+        %li.nav-item.active
+          %a.nav-link{:href => root_path}
+            Home
+            %span.sr-only (current)
+        %li.nav-item
+          %a.nav-link{:href => notes_path} Notes
+        %li.nav-item
+          %a.nav-link{:href => new_note_path} New Note
+        
+      %form.form-inline.my-2.my-lg-0
+        %ul.navbar-nav.mr-auto.mt-2.mt-lg-0
+          %li.nav-item.active
+            - if user_signed_in?
+              %a.nav-link{:href => destroy_user_session_path, method: :delete} Logout
+            - else 
+              %li.nav-item
+              %a.nav-link{:href => new_user_session_path} Login
+              %li.nav-item
+              %a.nav-link{:href => new_user_registration_path} Sign up
+       
+  
+    
+  %p.notice= notice
+  %p.alert= alert
+
+  = yield
